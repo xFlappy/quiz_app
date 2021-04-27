@@ -6,9 +6,22 @@ void main() {
 
 //void main() => runApp(MyApp()); //si può scrivere anche così, più semplice
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  var questionIndex = 0;
+
   void answerQuestion() {
-    print("Answer chosen!");
+    setState(() {
+      questionIndex++;
+    });
+    print(questionIndex);
   }
 
   @override //fa il codice più pulito e chiaro, stiamo facendo un override della classe
@@ -24,9 +37,15 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Text("The question!"),
-            RaisedButton(child: Text("Answer 1"), onPressed: answerQuestion),
-            RaisedButton(child: Text("Answer 2"), onPressed: answerQuestion),
+            Text(questions[questionIndex]),
+            RaisedButton(
+                child: Text("Answer 1"),
+                onPressed: () => print("Answer 1 chosen")),
+            RaisedButton(
+                child: Text("Answer 2"),
+                onPressed: () {
+                  print("Answer 2 chosen");
+                }),
             RaisedButton(child: Text("Answer 3"), onPressed: answerQuestion),
           ],
         ),
